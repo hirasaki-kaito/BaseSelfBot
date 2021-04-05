@@ -33,9 +33,9 @@ const exif = new Exif();
 conn.connect()
 const xinz = conn.xinz
 
-fake = 'Self Bot By Aqulzz'
+fake = '*_SELFBOT SASHIHARA_*'
 fakeimage = fs.readFileSync(`./media/aqul.jpeg`)
-prefix = 'z'
+prefix = '.'
 public = false
 
 xinz.on('message-new', async(qul) => {
@@ -135,8 +135,14 @@ No prefix
 => ${prefix}demote
 => ${prefix}kick
 => ${prefix}add
+=> ${prefix}attp
+=> ${prefix}ttp 1-4
 
-More? rakit sendirilah`
+SC ORI:
+
+❀° ┄───────╮
+                 ᎪQUᏞ
+╰───────┄ °❀`
 				aqul.sendFakeStatusWithImg(from, fakeimage, textnya, fake)
 				break
             case 'test':
@@ -557,6 +563,42 @@ More? rakit sendirilah`
                 	return aqul.reply(from, JSON.stringify(eval(chats.slice(2)), null, 2), qul)
 				}
 				break
+              case 'ttp': //By hirasaki
+							pngttp = './temp/ttp.png'
+
+							webpng = './temp/ttp.webp'
+							const ttptext = body.slice(5)
+							fetch(`https://api.areltiyan.site/sticker_maker?text=${ttptext}`, { method: 'GET'})
+							.then(async res => {
+							const ttptxt = await res.json()
+							console.log("hirasaki")
+							base64Img.img(ttptxt.base64, 'temp', 'ttp', function(err, filepath) {
+							if (err) return console.log(err);
+							exec(`ffmpeg -i ${pngttp} -vcodec libwebp -filter:v fps=fps=20 -lossless 1 -loop 0 -preset default -an -vsync 0 -s 512:512 ${webpng}`, (err) => {
+							buffer = fs.readFileSync(webpng)
+							hirasaki.sendMessage(from, buffer, sticker)
+							fs.unlinkSync(webpng)
+							fs.unlinkSync(pngttp)
+							})
+							})
+							});
+							break
+               case 'ttp':
+                case 'ttp2':
+                case 'ttp3':
+                case 'ttp4':
+                case 'attp':
+                    if (args.length == 0) return reply(`Example: ${prefix + command} LoL Human`)
+                    ini_txt = args.join(" ")
+                    ini_buffer = await getBuffer(`http://api.lolhuman.xyz/api/${command}?apikey=tegzxthetic666&text=${ini_txt}`)
+                    hirasaki.sendMessage(from, ini_buffer, sticker, { quoted: mek})
+                    break
+                    case 'attp':
+                    if (args.length == 0) return reply(`Usage: ${prefix + command} query\nExample: ${prefix + command} MrA43G`)
+                    teks = args.join(" ")
+                    buffer = await getBuffer(`http://lolhuman.herokuapp.com/api/attp?apikey=SoftApikey&text=${teks}`)
+                    hirasaki.sendMessage(from, buffer, sticker, { quoted: mek})
+                    break
         }
     } catch (err) {
         console.log(color('[ERROR]', 'red'), err)
